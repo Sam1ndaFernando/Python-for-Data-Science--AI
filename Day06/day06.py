@@ -204,7 +204,6 @@
 import csv
 
 def read_employee_records(filename):
-    """Reads employee records from a CSV file and displays them."""
     employees = []
     try:
         with open(filename, mode='r', newline='') as file:
@@ -223,12 +222,7 @@ def read_employee_records(filename):
 
 
 def filter_high_salary_employees(employees, salary_threshold=57000):
-    """
-    Filters employee records based on the salary threshold.
-    :param employees: List of employee records (dictionaries)
-    :param salary_threshold: Minimum salary to filter employees
-    :return: Filtered list of employee records
-    """
+
     try:
         filtered_employees = [employee for employee in employees if employee['salary'] > salary_threshold]
     except Exception as e:
