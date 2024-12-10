@@ -201,67 +201,106 @@
 
 
 
-import csv
+# import csv
 
-def read_employee_records(filename):
-    employees = []
-    try:
-        with open(filename, mode='r', newline='') as file:
-            reader = csv.DictReader(file)
-            print("All Employee Records:")
-            for row in reader:
-                print(row)  
+# def read_employee_records(filename):
+#     employees = []
+#     try:
+#         with open(filename, mode='r', newline='') as file:
+#             reader = csv.DictReader(file)
+#             print("All Employee Records:")
+#             for row in reader:
+#                 print(row)  
                 
-                row['salary'] = float(row['salary'])  
-                employees.append(row)
-    except FileNotFoundError:
-        print(f"Error: The file '{filename}' was not found.")
-    except Exception as e:
-        print(f"Error reading file '{filename}': {e}")
-    return employees
+#                 row['salary'] = float(row['salary'])  
+#                 employees.append(row)
+#     except FileNotFoundError:
+#         print(f"Error: The file '{filename}' was not found.")
+#     except Exception as e:
+#         print(f"Error reading file '{filename}': {e}")
+#     return employees
 
 
-def filter_high_salary_employees(employees, salary_threshold=57000):
+# def filter_high_salary_employees(employees, salary_threshold=57000):
 
-    try:
-        filtered_employees = [employee for employee in employees if employee['salary'] > salary_threshold]
-    except Exception as e:
-        print(f"Error filtering employees: {e}")
-        filtered_employees = []
-    return filtered_employees
+#     try:
+#         filtered_employees = [employee for employee in employees if employee['salary'] > salary_threshold]
+#     except Exception as e:
+#         print(f"Error filtering employees: {e}")
+#         filtered_employees = []
+#     return filtered_employees
 
 
-def write_employee_records(filename, employees):
-    """Writes employee records to a new CSV file."""
-    if not employees:
-        print(f"No records to write to '{filename}'")
-        return
+# def write_employee_records(filename, employees):
+#     """Writes employee records to a new CSV file."""
+#     if not employees:
+#         print(f"No records to write to '{filename}'")
+#         return
     
-    try:
-        with open(filename, mode='w', newline='') as file:
-            fieldnames = ['employeeId', 'name', 'department', 'salary']
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
+#     try:
+#         with open(filename, mode='w', newline='') as file:
+#             fieldnames = ['employeeId', 'name', 'department', 'salary']
+#             writer = csv.DictWriter(file, fieldnames=fieldnames)
             
-            writer.writeheader()  
-            for employee in employees:
-                writer.writerow(employee)  
-        print(f"Filtered records successfully written to '{filename}'")
-    except Exception as e:
-        print(f"Error writing to file '{filename}': {e}")
+#             writer.writeheader()  
+#             for employee in employees:
+#                 writer.writerow(employee)  
+#         print(f"Filtered records successfully written to '{filename}'")
+#     except Exception as e:
+#         print(f"Error writing to file '{filename}': {e}")
 
 
-if __name__ == "__main__":
-    input_filename = 'employee.csv'
+# if __name__ == "__main__":
+#     input_filename = 'employee.csv'
     
-    output_filename = 'high_salary_employee.csv'
+#     output_filename = 'high_salary_employee.csv'
     
-    employees = read_employee_records(input_filename)
+#     employees = read_employee_records(input_filename)
     
-    if employees:
-        print(f"\nSuccessfully read {len(employees)} employee records.\n")
+#     if employees:
+#         print(f"\nSuccessfully read {len(employees)} employee records.\n")
         
-        filtered_employees = filter_high_salary_employees(employees, salary_threshold=57000)
+#         filtered_employees = filter_high_salary_employees(employees, salary_threshold=57000)
         
-        print(f"\n{len(filtered_employees)} records matched the filter condition (salary > 57,000).\n")
+#         print(f"\n{len(filtered_employees)} records matched the filter condition (salary > 57,000).\n")
         
-        write_employee_records(output_filename, filtered_employees)
+#         write_employee_records(output_filename, filtered_employees)
+
+
+# =================================================================================================================================================
+
+# Requirements
+
+# Create a decorator check_positive that checks if the input to a function is a positive number.
+# If the input is not a positive number, print the message:
+# "Input must be a positive number"
+
+# Use this decorator on a function called calculate_square_root that takes one number as input.
+# The function should return two values:
+# The square root of the input number.
+# The square of the input number.
+
+
+import math
+
+def check_positive(func):
+    def wrapper(number):
+        if not isinstance(number, (int, float)) or number <= 0:
+            print("Input must be a positive number.")
+            return None
+        return func(number)
+    return wrapper
+
+@check_positive
+def calculate_square_root(number):
+    square_root = math.sqrt(number)
+    square = number ** 2
+    return square_root, square
+
+try:
+    user_input = float(input("Enter a positive number: "))
+    result = calculate_square_root(user_input)  
+    if result:
+        print(f"Square root: {result[0]:.2f}, Square: {result[1]:.2f}")
+except ValueError:
+    print("Invalid input. Please enter a valid number.")
