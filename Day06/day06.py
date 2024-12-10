@@ -17,4 +17,28 @@
 
 
 with open("my_file.txt", "a") as file: 
-    file.write("\n we are studdent")
+    file.write("\n we are studdent")\
+    
+
+
+
+#     implient the simple content System
+
+#     1. create the programme tha store and manage contacts in the file name "contacts.txt " each contact shuld name, phonr Number, email
+
+#     impliment the fetures
+#     add the new  contact
+#     append the contact to the  file 
+#     view all contact 
+#     read and display all contacts from the file 
+#     exit the programe
+
+
+
+#     main function
+
+# press ... given the programe user input details 
+
+# 1 who add the contact 
+# 2. to give all contact
+# 3. enter exit from the pogramme
