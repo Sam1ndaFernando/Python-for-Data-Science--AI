@@ -47,12 +47,12 @@
 # ============================================
 # ============================================
 
-
 import os
 
-file_name = 'contacts.txt'
+FILE_NAME = 'contacts.txt'
 
 def add_contact():
+    """Add a new contact to the contacts file."""
     name = input("Enter contact name: ").strip()
     phone = input("Enter phone number: ").strip()
     email = input("Enter email address: ").strip()
@@ -61,22 +61,26 @@ def add_contact():
         print("All fields (name, phone, email) are required!")
         return
     
-    with open(file_name, 'a') as file:
+    with open(FILE_NAME, 'a') as file:
         file.write(f'{name},{phone},{email}\n')
     print(f"Contact for {name} added successfully!")
 
 def view_contacts():
-    if not os.path.exists(file_name):
+    if not os.path.exists(FILE_NAME):
         print("No contacts found. Please add some contacts first.")
         return
     
     print("\n--- List of Contacts ---")
-    with open(file_name, 'r') as file:
+    with open(FILE_NAME, 'r') as file:
         contacts = file.readlines()
+        
         if contacts:
             for index, contact in enumerate(contacts, start=1):
-                name, phone, email = contact.strip().split(',')
-                print(f"{index}. Name: {name}, Phone: {phone}, Email: {email}")
+                try:
+                    name, phone, email = contact.strip().split(',')
+                    print(f"{index}. Name: {name}, Phone: {phone}, Email: {email}")
+                except ValueError:
+                    print(f"Error in contact format on line {index}. Skipping this entry.")
         else:
             print("No contacts available.")
 
@@ -101,4 +105,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
