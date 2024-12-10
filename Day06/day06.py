@@ -108,19 +108,64 @@
 
 # ================================================================
 
+# he code you've provided is a good start for handling the tasks you've outlined. I'll guide you through each of the steps and ensure everything works as expected.
+
+# Here’s how we can extend it to meet your requirements:
+
+# Read the JSON file: This is already handled by read_json(file_path).
+# Display all students: The function display_students(data) works for this.
+# Display students who scored above 75: The function display_above_75(data) achieves this.
+# Add a new student to the file: add_student(data, new_student) is there to append a new student to the list.
+# Save the file back to JSON: save_json(file_path, data) does this by saving the modified data.
+
 
 import json
 
-json_file_path = "json.json"
+def read_json(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    return data
 
-try:
-    with open(json_file_path, 'r') as json_file:
-        data = json.load(json_file)
-    print("Successfully loaded JSON data:")
-    print(data) 
-except FileNotFoundError:
-    print(f"Error: The file '{json_file_path}' was not found.")
-except json.JSONDecodeError:
-    print(f"Error: The file '{json_file_path}' contains invalid JSON.")
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")
+def display_students(data):
+    print("All Students:")
+    for student in data:
+        print(student)
+
+def display_above_75(data):
+    print("\nStudents who scored above 75:")
+    for student in data:
+        if student['score'] > 75:
+            print(student)
+
+def add_student(data, new_student):
+    data.append(new_student)
+
+def save_json(file_path, data):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
+file_path = 'students.json'
+
+students_data = read_json(file_path)
+
+display_students(students_data)
+
+display_above_75(students_data)
+
+new_student = {
+    "name": "John Doe",
+    "score": 88
+}
+
+add_student(students_data, new_student)
+
+save_json(file_path, students_data)
+
+print("\nUpdated Students List:")
+display_students(students_data)
+
+
+
+
+
+
