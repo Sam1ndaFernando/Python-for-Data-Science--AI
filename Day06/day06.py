@@ -176,15 +176,35 @@
 
 # =========================================================================================================
 
+# Task: Create a Python Program to Manage Employee Records
+# The goal is to create a Python program that manages company employee records stored in a CSV file. The program should perform the following tasks:
 
-# Read the input file employee.csv using the CSV reader and display all records on the console.
-# Filter the employee records to identify those whose salary is above 57,000.
-# Write the filtered records to a new CSV file called high_salary_employee.csv using a dictionary-based CSV writer.
+# Read the Input File
+
+# Use the csv.reader to read employee.csv, which contains the following fields:
+# employeeId
+# name
+# department
+# salary
+# Display all employee records on the console.
+# Filter the Records
+
+# Identify employees whose salary is above 57,000.
+# Write the Filtered Records to a New File
+
+# Use csv.DictWriter to write the filtered records to a new file named high_salary_employee.csv.
+# The new file should retain the same fields as the input file:
+# employeeId
+# name
+# department
+# salary
+
 
 
 import csv
 
 def read_employee_records(filename):
+    """Reads employee records from a CSV file and displays them."""
     employees = []
     try:
         with open(filename, mode='r', newline='') as file:
@@ -192,6 +212,8 @@ def read_employee_records(filename):
             print("All Employee Records:")
             for row in reader:
                 print(row)  
+                
+                row['salary'] = float(row['salary'])  
                 employees.append(row)
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
@@ -234,7 +256,6 @@ def write_employee_records(filename, employees):
         print(f"Error writing to file '{filename}': {e}")
 
 
-
 if __name__ == "__main__":
     input_filename = 'employee.csv'
     
@@ -250,5 +271,3 @@ if __name__ == "__main__":
         print(f"\n{len(filtered_employees)} records matched the filter condition (salary > 57,000).\n")
         
         write_employee_records(output_filename, filtered_employees)
-
-    
